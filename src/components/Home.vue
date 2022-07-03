@@ -5,7 +5,7 @@
         <el-row >
           <el-col :span="12" >
             <div class="grid-content bg-purple" align="left"  >
-              <img src="../assets/logo.png" height="90px" width="120px">
+              <img src="/static/images/logo.png" height="90px" width="120px">
             </div>
           </el-col>
           <el-col :span="12" >
@@ -31,7 +31,7 @@
             <img :src="pro.pimg" height="200px" width="160px">
             <h4>{{pro.pname}}</h4>
             <h4>{{pro.price}}</h4>
-            <el-button type="primary" round><router-link :to="{name:'ProductInfo',params:{pid:pro.pid}}">立即购买</router-link></el-button>
+            <el-button type="primary" round @click="toProductInfo(pro)">立即购买</el-button>
           </div>
         </div>
       </el-main>
@@ -74,9 +74,13 @@ export default {
         vm.props = resp.data ;
         console.log(resp.data.props)
       })
+    },
+    // 使用鼠标点击事件来进行路由传递参数,这里直接传递一个对象，因为如果传递一个pid然后再到数据库查，会增加后端压力
+    toProductInfo:function (pro){
+
+      this.$router.push({name:'ProductInfo',params:pro})
 
     }
-
   }
 }
 </script>
