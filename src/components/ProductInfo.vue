@@ -17,67 +17,62 @@
         </el-row>
       </el-header>
       <el-main>
-      <!-- 商品图片，商品名称，商品价格-->
+
         <el-row>
-          <el-col :span="8">
-            <div class="grid-content bg-purple" >
+          <el-col :span="12">
+            <div class="grid-content bg-purple">
+              <div class="grid-content bg-purple" >
                 <img :src="prop.pimg" width="400px" height="500px">
+              </div>
             </div>
           </el-col>
+          <el-col :span="12">
+            <div class="grid-content bg-purple-light">
+              <el-row>
+                <el-col :span="6">
+                  <div class="grid-content bg-purple" align="left">
+                    商品名称
+                  </div>
+                </el-col>
+                <el-col :span="6">
+                  <div class="grid-content bg-purple" align="left">
+                    {{prop.pname}}
+                  </div>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="6">
+                  <div class="grid-content bg-purple" align="left">
+                    商品价格
+                  </div>
+                </el-col>
+                <el-col :span="6">
+                  <div class="grid-content bg-purple" align="left">
+                    {{prop.price}}
+                  </div>
+                </el-col>
+              </el-row>
 
-<!--          第二、第三列都放列放三行-->
-          <!--这是第二列  名称：商品名字、商品价格-->
-          <el-col :span="8">
-            <el-row>
-              <el-col :span="8">
-                <div class="grid-content bg-purple" align="right">
-                  商品名称
-                </div>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="8">
-                <div class="grid-content bg-purple" align="right">
-                  商品价格
-                </div>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="8">
-                <div class="grid-content bg-purple" align="right">
-
-                </div>
-              </el-col>
-            </el-row>
-          </el-col>
-
-
-          <!--这是第三列  放具体的参数：商品名字、商品价格-->
-          <el-col :span="8">
-            <el-row>
-              <el-col :span="8">
-                <div class="grid-content bg-purple" align="left">
-                  {{prop.pname}}
-                </div>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="8">
-                <div class="grid-content bg-purple" align="left">
-                  {{prop.price}}
-                </div>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="8">
-                <div class="grid-content bg-purple" align="left">
+              <el-row>
+                <el-col :span="6">
+                  <div class="grid-content bg-purple" align="left">
+                    商品数量
+                  </div>
+                </el-col>
+                <el-col :span="6">
+                  <div class="grid-content bg-purple" align="left">
+                    <el-input v-model="count" placeholder="请输入商品数量"></el-input>
+                  </div>
+                </el-col>
+              </el-row>
+              <el-row>
+                <div class="grid-content bg-purple" align="left" @click="toCart(prop)">
                   <el-button type="danger">加入购物车</el-button>
                 </div>
-              </el-col>
-            </el-row>
+              </el-row>
+            </div>
           </el-col>
         </el-row>
-
       </el-main>
     </el-container>
   </div>
@@ -88,14 +83,22 @@ export default {
   name: "ProductInfo",
   data(){
     return{
-      prop:this.$route.params
+      prop:this.$route.params,
+      count:0
     }
   },
   created() {
 
   },
   methods:{
-
+      toCart:function (prop){
+        let userAndProInfo = {
+          user_id:16281069,
+          pid:prop.pid,
+          pcount:this.count,
+        }
+        this.$router.push({name:'cart',params:userAndProInfo})
+      }
   }
 
 }
